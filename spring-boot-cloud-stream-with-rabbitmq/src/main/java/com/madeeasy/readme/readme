@@ -1,0 +1,67 @@
+https://www.vincenzoracca.com/en/blog/framework/spring/cloud-stream/
+
+In this tutorial we will see how to easily create an event-driven application with Spring Cloud Stream and Kafka.
+
+Components of Spring Cloud Stream
+
+Spring Cloud Stream has three main components:
+
+    Destination Binder: The component that provides integration with external message systems such as RabbitMQ or Kafka.
+    Binding: A bridge between the external message system and the producers/consumers provided by the application.
+    Message: The data structure used by producers/consumers to communicate with Destination Binders.
+
+ let me draw a small image ::
+
+                                   @Bean
+                                   public Function<String,String> uppercase() {
+   RabbitMQ ---> input binding            return String::toUpperCase;   output binding   ------->  Kafka
+                                   }
+
+From the image above you can see that the bindings are input and output. You can combine multiple binders;
+for example you could read a message from RabbitMQ and write it to Kafka, creating a simple Java function (we will elaborate on this topic).
+
+
+The developer will be able to focus solely on Business Logic in the form of functions, after which when choosing the message system to be
+used, he will have to import the dependency of the chosen binder.
+
+There are binders managed directly by Spring Cloud Stream such as Apache Kafka, RabbitMQ, Amazon Kinesis, and others managed by
+external maintainers such as Azure EventHubs, Amazon SQS, etc. However, Spring Cloud Stream allows you to create custom binders.
+
+
+Spring Cloud Stream from Spring Cloud Function ::
+
+Spring Cloud Stream is based on Spring Cloud Function. Business logic can be written through simple functions.
+The classic three interfaces of Java are used:
+
+    Supplier: a function that has output but no input; it is also called producer, publisher, source .
+    Consumer: a function that has input but no output, it is also called subscriber or sink.
+    Function: a function that has both input and output, is also called processor.
+
+And that is precisely why I am telling you about Spring Cloud Stream today. In previous versions,
+there was no use of this approach, which made the framework less intuitive.
+
+
+dependencies ::
+  #1) RabbitMQ or Kafka
+  #2) cloud stream
+  #3) no need RabbitMQ or Kafka configuration i.e. in yml file i.e. for kafka no need serializers and deserializers or
+  for RabbitMQ no need host, port, username, password, etc.
+  #4) coding will be same only binder will be changed i.e. #1) cloud stream + #2) kafka or rabbitmq i.e. kafka will be replaced with
+  rabbitmq and vice versa.
+
+note :: if we use kafka then we don't need to write serializers and deserializers.
+@Bean
+public Supplier<SensorEventMessage> sensorEventProducer() {
+    return () -> new SensorEventMessage("2", Instant.now(), 30.0);
+}
+That's it, we are done writing code! We do not need to write serializers and deserializers.
+Everything is handled automatically by Spring Cloud Stream.
+
+
+In fact, with Spring Cloud Stream, you can write code to produce/consume messages on Kafka,
+but the same code would also work if you used RabbitMQ, AWS Kinesis, AWS SQS, Azure EventHubs, etc!
+
+note::
+  here in this application we use both supplied and consumer functions that's why in the same console we get the output
+
+

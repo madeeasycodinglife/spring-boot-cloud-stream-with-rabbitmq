@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: SPRING-CLOUD-STREAM
+  cloud:
+    function:
+      definition: logEventReceived;sensorEventProducer
+    stream:
+      bindings:
+        logEventReceived-in-0: #a consumer
+          destination: sensor_event_topic
+          group: ${spring.application.name}
+        sensorEventProducer-out-0: #a producer
+          destination: sensor_event_topic
+
+# https://www.vincenzoracca.com/en/blog/framework/spring/cloud-stream/
+
+
+#    The spring.cloud.function.definition property is used to define the application functions annotated with @Bean.
+#    The functions are separated by a semicolon.
+#    The spring.cloud.stream.bindings property is used to declare for each producer/consumer its destination
+#    (in this case it is the name of a Topic Kafka). The following naming convention is used:
+#    for input bindings: <functionName> + -in- + <index>.
+#    for output bindings: <functionName> + -out- + <index>. The index field is always 0 when we want to exploit the concept
+#    of message groups.
+#    The consumer logEventReceived, in addition to having the destination field, also has the group field indicating the
+#    name of the Message Group.
+#    Each consumer in the same Message Group, reads messages from a different partition, so that it shares messages with the other consumers, in a horizontal scaling manner.
