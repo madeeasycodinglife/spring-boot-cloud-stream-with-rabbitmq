@@ -49,12 +49,12 @@ dependencies ::
   #4) coding will be same only binder will be changed i.e. #1) cloud stream + #2) kafka or rabbitmq i.e. kafka will be replaced with
   rabbitmq and vice versa.
 
-note :: if we use kafka then we don't need to write serializers and deserializers.
+note :: if we use kafka then we don't need to write serializers and deserializers and for rabbitmq no need to add exchange,routing key,queue .
 @Bean
 public Supplier<SensorEventMessage> sensorEventProducer() {
     return () -> new SensorEventMessage("2", Instant.now(), 30.0);
 }
-That's it, we are done writing code! We do not need to write serializers and deserializers.
+That's it, we are done writing code! We do not need to write serializers and deserializers and for rabbitmq no need to add exchange,routing key,queue .
 Everything is handled automatically by Spring Cloud Stream.
 
 
