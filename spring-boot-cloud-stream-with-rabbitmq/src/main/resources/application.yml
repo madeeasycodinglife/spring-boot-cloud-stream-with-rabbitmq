@@ -33,6 +33,29 @@ spring:
 # sensorEventProducer function produces messages to the same topic. The configuration establishes the bindings between the functions and 
 # the messaging destinations, allowing messages to flow between them.
 
+# In the provided YAML configuration, logEventReceived-in-0 and sensorEventProducer-out-0 are used as the binding names for the consumer and producer functions, 
+# respectively. These names are used to establish the communication channels between the functions and the messaging destinations.
+
+# If you want to use different numbers, such as logEventReceived-in-1 and sensorEventProducer-out-1, you can modify the configuration as follows:
+
+#spring:
+#  application:
+#    name: SPRING-CLOUD-STREAM
+#  cloud:
+#    function:
+#      definition: logEventReceived;sensorEventProducer
+#    stream:
+#      bindings:
+#        logEventReceived-in-1: # a consumer with a different index
+#          destination: sensor_event_topic
+#          group: ${spring.application.name}
+#        sensorEventProducer-out-1: # a producer with a different index
+#          destination: sensor_event_topic
+# By using different numbers (indices) for the bindings, you can establish separate communication channels between different instances of
+# consumers and producers. This allows you to have multiple consumers and producers for the same destination topic, each processing messages independently.
+
+# Remember to update your code accordingly, ensuring that the names used in the configuration match the function bindings in your code.
+
 #    The spring.cloud.function.definition property is used to define the application functions annotated with @Bean.
 #    The functions are separated by a semicolon.
 #    The spring.cloud.stream.bindings property is used to declare for each producer/consumer its destination
