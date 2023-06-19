@@ -29,7 +29,7 @@ spring:
 # naming convention <functionName>-in-<index>, and output bindings follow <functionName>-out-<index>.
 
 # In summary, the configuration sets up a Spring Cloud Stream application with two functions: a consumer (logEventReceived) and a 
-# producer (sensorEventProducer). The logEventReceived function consumes messages from the sensor_event_topic Kafka topic, while the 
+# producer (sensorEventProducer). The logEventReceived function consumes messages from the sensor_event_topic (like Kafka topic), while the 
 # sensorEventProducer function produces messages to the same topic. The configuration establishes the bindings between the functions and 
 # the messaging destinations, allowing messages to flow between them.
 
