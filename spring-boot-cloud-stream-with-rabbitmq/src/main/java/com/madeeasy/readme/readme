@@ -64,4 +64,35 @@ but the same code would also work if you used RabbitMQ, AWS Kinesis, AWS SQS, Az
 note::
   here in this application we use both supplied and consumer functions that's why in the same console we get the output
 
+example of real time use cases of cloud stream ::
+Sure! Here's a real-time use case of Spring Cloud Stream:
 
+Imagine you're building an e-commerce application that consists of multiple microservices. One of these microservices is responsible for processing and fulfilling 
+orders. Let's call it the Order Service.
+
+In this scenario, you can utilize Spring Cloud Stream to handle the communication between the Order Service and other microservices involved in the order 
+fulfillment process.
+
+Use case: Order Fulfillment with Spring Cloud Stream
+
+1. Order Service (Producer):
+   The Order Service receives new order requests from customers. When a new order is placed, the Order Service can publish an order event message onto an 
+output channel using Spring Cloud Stream. This order event message contains all the necessary details of the order, such as the customer information, 
+items ordered, and shipping address.
+
+2. Inventory Service (Consumer):
+   The Inventory Service is responsible for managing the available stock of products. It needs to be notified whenever a new order is placed so that it can
+update the inventory accordingly. By subscribing to the Order Service's output channel through an input binding in Spring Cloud Stream, the Inventory Service
+can receive the order event messages in real-time. It can then process the message, deduct the ordered items from the inventory, and update the stock levels.
+
+3. Shipping Service (Consumer):
+   The Shipping Service is responsible for shipping the products to customers. When a new order is placed, it needs to be informed so that it can initiate the 
+shipping process. Similar to the Inventory Service, the Shipping Service can subscribe to the Order Service's output channel via an input binding. It will 
+receive the order event messages and start the shipping process based on the information provided in the message.
+
+By utilizing Spring Cloud Stream, the Order Service can publish order events onto the output channel, and the Inventory Service and Shipping Service can consume 
+these events by subscribing to the same channel. This decouples the services, allowing them to independently scale and evolve. The communication is seamless, 
+and updates are processed in real-time, ensuring a smooth order fulfillment process for customers.
+
+Overall, Spring Cloud Stream simplifies the messaging and communication between microservices, making it a powerful tool for building scalable and event-driven
+architectures in real-time use cases like order fulfillment, IoT data processing, real-time analytics, and more.
