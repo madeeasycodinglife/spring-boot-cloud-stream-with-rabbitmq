@@ -25,6 +25,14 @@ spring:
 # sensorEventProducer-out-0: This declares an output binding for the sensorEventProducer function. It specifies that messages produced by this 
 # function will be sent to the sensor_event_topic destination.
 
+# The spring.cloud.stream.bindings property is used to declare the destinations for each producer and consumer. Input bindings follow the 
+# naming convention <functionName>-in-<index>, and output bindings follow <functionName>-out-<index>.
+
+# In summary, the configuration sets up a Spring Cloud Stream application with two functions: a consumer (logEventReceived) and a 
+# producer (sensorEventProducer). The logEventReceived function consumes messages from the sensor_event_topic Kafka topic, while the 
+# sensorEventProducer function produces messages to the same topic. The configuration establishes the bindings between the functions and 
+# the messaging destinations, allowing messages to flow between them.
+
 #    The spring.cloud.function.definition property is used to define the application functions annotated with @Bean.
 #    The functions are separated by a semicolon.
 #    The spring.cloud.stream.bindings property is used to declare for each producer/consumer its destination
