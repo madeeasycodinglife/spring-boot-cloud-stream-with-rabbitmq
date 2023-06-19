@@ -14,6 +14,16 @@ spring:
 
 # https://www.vincenzoracca.com/en/blog/framework/spring/cloud-stream/
 
+# spring.cloud.function.definition: logEventReceived;sensorEventProducer: This property defines the application functions that will be used by the Spring Cloud
+# Stream framework. In this case, there are two functions: logEventReceived and sensorEventProducer.
+
+# stream.bindings: This section defines the bindings for the functions, specifying the input and output destinations for messaging.
+
+# logEventReceived-in-0: This declares an input binding for the logEventReceived function. It specifies that messages will be consumed from the 
+# sensor_event_topic destination.
+
+# sensorEventProducer-out-0: This declares an output binding for the sensorEventProducer function. It specifies that messages produced by this 
+# function will be sent to the sensor_event_topic destination.
 
 #    The spring.cloud.function.definition property is used to define the application functions annotated with @Bean.
 #    The functions are separated by a semicolon.
