@@ -55,6 +55,60 @@ spring:
 # consumers and producers. This allows you to have multiple consumers and producers for the same destination topic, each processing messages independently.
 
 # Remember to update your code accordingly, ensuring that the names used in the configuration match the function bindings in your code.
+# ======================================================================================================================
+# More clearly :: 
+# ======================================================================================================================
+
+#spring:
+#  application:
+#   name: SPRING-CLOUD-STREAM
+#  cloud:
+#    function:
+#      definition: logEventReceived0;logEventReceived1;sensorEventProducer0;sensorEventProducer1
+#    stream:
+#      bindings:
+#        logEventReceived0-in-0: # consumer with index 0, topic name: sensor_event_topic0
+#          destination: sensor_event_topic0
+#          group: ${spring.application.name}
+#        logEventReceived1-in-0: # consumer with index 1, topic name: sensor_event_topic1
+#          destination: sensor_event_topic1
+#          group: ${spring.application.name}
+#        sensorEventProducer0-out-0: # producer with index 0, topic name: sensor_event_topic0
+#          destination: sensor_event_topic0
+#        sensorEventProducer1-out-0: # producer with index 1, topic name: sensor_event_topic1
+#          destination: sensor_event_topic1
+# @Configuration
+# @Slf4j
+# @RequiredArgsConstructor
+# public class SensorEventFunctions {
+#
+#    // create a consumer with index 0, topic name: sensor_event_topic0
+#    @Bean
+#    public Consumer<SensorEventMessage> logEventReceived0() {
+#        return sensorEventMessage -> log.info("Message received from binding 0: {}", sensorEventMessage);
+#    }
+#
+#    // create a consumer with index 1, topic name: sensor_event_topic1
+#    @Bean
+#    public Consumer<SensorEventMessage> logEventReceived1() {
+#        return sensorEventMessage -> log.info("Message received from binding 1: {}", sensorEventMessage);
+#    }
+#
+#    // create a producer with index 0, topic name: sensor_event_topic0
+#    @Bean
+#    public Supplier<SensorEventMessage> sensorEventProducer0() {
+#        return () -> new SensorEventMessage("2", Instant.now(), 30.0);
+#    }
+#
+#   // create a producer with index 1, topic name: sensor_event_topic1
+#    @Bean
+#    public Supplier<SensorEventMessage> sensorEventProducer1() {
+#        return () -> new SensorEventMessage("2", Instant.now(), 30.0);
+#    }
+# }
+# Note :: The association between the producer functions and the topics is established through the naming convention in the YAML configuration.
+# The names of the producer functions (sensorEventProducer0 and sensorEventProducer1) correspond to the binding names
+# (sensorEventProducer0-out-0 and sensorEventProducer1-out-0) in the YAML 
 
 #    The spring.cloud.function.definition property is used to define the application functions annotated with @Bean.
 #    The functions are separated by a semicolon.
